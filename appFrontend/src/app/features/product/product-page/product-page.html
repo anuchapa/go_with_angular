@@ -1,0 +1,31 @@
+<app-add-products (addEvent)="addProduct($event)" [isLoading]="isLoading"></app-add-products>
+<app-products-list [products]="products" (openDelEvent)="openConfirm($event)"
+    (openQrEvent)="openQR($event)"></app-products-list>
+
+<dialog #myQrDialog>
+    @if (qrString) {<qrcode [qrdata]="qrString" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>}
+    <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md float-right"
+        (click)="closeQR()">Close</button>
+</dialog>
+
+<dialog #myConfirmDialog>
+    <div class="py-10">
+        <p>ต้องการลบข้อมูล รหัสสินค้า {{delProductIndex >= 0 ?products[delProductIndex].product_code:''}} หรือไม่? </p>
+    </div>
+    <div class="flex gap-2 float-right">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md"
+            (click)="confirmDel()">ตกลง</button>
+        <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-6 rounded-md"
+            (click)="closeConfirm()">ยกเลิก</button>
+    </div>
+</dialog>
+
+<dialog #myResultDialog>
+    <div class="py-10 px-15">
+        <p>{{resultMessage()}}</p>
+    </div>
+    <div class="flex gap-2 justify-center">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md"
+            (click)="closeResult()">ตกลง</button>
+    </div>
+</dialog>

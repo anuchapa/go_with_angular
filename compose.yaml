@@ -1,0 +1,38 @@
+services:
+
+  backend:
+    build: ./appBackend
+    ports: 
+      - 3000:3000
+
+  frontend:
+    build: ./appFrontend
+    ports: 
+     - 4200:80
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_server
+    restart: unless-stopped
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MyStrongPassword123!
+      - MSSQL_PID=Developer 
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver
+    restart: unless-stopped
+    ports:
+      - "8080:8978"
+    volumes:
+      - ./cloudbeaver:/opt/cloudbeaver/workspace
+    depends_on:
+      - sql-server
+
+volumes:
+  mssql_data:

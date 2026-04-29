@@ -1,0 +1,17 @@
+@reference "../../../../styles.css";
+
+.product-table {
+    table {
+        @apply border-collapse border w-full;
+    }
+
+    th {
+        @apply border-collapse border py-2 bg-blue-400 font-normal;
+    }
+
+    td {
+        @apply border-collapse border py-2 font-normal;
+    }
+
+
+}

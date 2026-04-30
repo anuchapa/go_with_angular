@@ -10,6 +10,20 @@
 
 ## Subproject 
 ### Simple project management
+#### Firs time setup
+- **ฺBackend**
+```command
+# For setup migrate and create database
+docker-compose up sql-server -d --build
+cd ./appBackend/
+go run ./cmd/migrate/.
+```
+
+#### RUN
+```command
+docker-compose up -d --build
+```
+
 #### Feature
 1. **Show products**
 <div align="center">

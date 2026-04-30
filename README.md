@@ -11,7 +11,7 @@
 ## Subproject 
 ### Simple project management
 #### Firs time setup
-- **ฺBackend**
+- **ฺBackend** 
 ```command
 # For setup migrate and create database
 docker-compose up sql-server -d --build
@@ -20,9 +20,17 @@ go run ./cmd/migrate/.
 ```
 
 #### RUN
-```command
+To start the application, navigate to the root directory (where the docker-compose.yml file is located) and run:
+```command 
 docker-compose up -d --build
 ```
+**Access URLs:**
+
+- **Frontend UI:** http://localhost:4200
+
+- **Backend API:** http://localhost:3000
+
+
 
 #### Feature
 1. **Show products**

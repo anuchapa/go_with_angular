@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 interface Product {
   id: number;
@@ -29,6 +30,7 @@ export type ProductCreateRequest = Product[]
 export class ProductApi {
   private http = inject(HttpClient)
   private _apiUrl = environment.base_url
+  private platformId = inject(PLATFORM_ID)
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ';
@@ -42,7 +44,7 @@ export class ProductApi {
 
   private apiUrl(endPoint: string): string {
 
-    return `${environment.base_url}/${endPoint}`
+    return `${this._apiUrl}/${endPoint}`
   }
 
 
@@ -51,7 +53,16 @@ export class ProductApi {
       catchError(this.handleError),
     )
 
-    return callApi().pipe(map(resp => resp.result.data))
+    return callApi().pipe(map(resp => {
+      var products = resp.result.data
+      if (isPlatformBrowser(this.platformId)) {
+        products.forEach((product) => {
+          product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
+        })
+        console.log(products)
+      }
+      return products
+    }))
   }
 
   public CreateProduct(products: Product[]): Observable<Product[]> {
@@ -59,10 +70,18 @@ export class ProductApi {
       catchError(this.handleError),
     )
 
-    return callApi().pipe(map(resp => resp.result.data))
+    return callApi().pipe(map(resp => {
+      var products = resp.result.data
+      if (isPlatformBrowser(this.platformId)) {
+        products.forEach((product) => {
+          product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
+        })
+      }
+      return products
+    }))
   }
 
-  public DeleteProduct(id : number): Observable<boolean> {
+  public DeleteProduct(id: number): Observable<boolean> {
     let callApi = () => this.http.delete<ProductResponse>(this.apiUrl(`products/${id}`)).pipe(
       catchError(this.handleError),
     )

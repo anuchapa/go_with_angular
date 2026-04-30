@@ -8,10 +8,8 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Loading .env file is failed.")
-	}
+	_ = godotenv.Load()
+	
 	dns := os.Getenv("sqlSerConnectionString")
 	if dns == "" {
 		panic("sqlSerConnectionString not found.")

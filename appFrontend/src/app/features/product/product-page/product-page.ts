@@ -17,14 +17,7 @@ export class ProductPage {
 
   private productApi = inject(ProductApi)
   public products$ = this.productApi.GetAllProducts()
-  public products =
-    [
-      { id: 1, product_code: "1234567891" },
-      { id: 2, product_code: "1234567892" },
-      { id: 3, product_code: "1234567893" },
-      { id: 4, product_code: "1234567894" },
-      { id: 5, product_code: "1234567895" },
-    ]
+  public products:any[] =  []
   public delProductIndex: number = -1
   public qrString: string | null = null
   public resultMessage = signal<string | null>(null)
@@ -33,8 +26,17 @@ export class ProductPage {
   constructor() {
     this.products$.subscribe(products => {
       this.products = products
+      this.resultMessage.set("")
     })
   }
+
+  // ngOnInit(): void {
+  //    this.products$.subscribe(products => {
+  //     this.products = products
+  //     this.resultMessage.set("")
+  //   })
+  // }
+
 
 
   public addProduct(productCode: string) {

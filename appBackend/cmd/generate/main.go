@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -33,4 +34,6 @@ func main() {
     )
 	
 	g.Execute()
+
+	fmt.Println("Generated is successful.")
 }

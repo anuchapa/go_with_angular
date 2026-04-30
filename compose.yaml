@@ -4,11 +4,18 @@ services:
     build: ./appBackend
     ports: 
       - 3000:3000
+    depends_on:
+      - sql-server
+    environment:
+      - sqlSerConnectionString=sqlserver://sa:MyStrongPassword123!@sql-server:1433?database=myapp
+      - sqlSerMasterConnectionString=sqlserver://sa:MyStrongPassword123!@sql-server:1433?database=master
 
   frontend:
     build: ./appFrontend
     ports: 
      - 4200:80
+    depends_on:
+      - backend
 
   sql-server:
     image: mcr.microsoft.com/mssql/server:2022-latest

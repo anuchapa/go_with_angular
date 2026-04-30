@@ -55,12 +55,15 @@ export class ProductApi {
 
     return callApi().pipe(map(resp => {
       var products = resp.result.data
-      if (isPlatformBrowser(this.platformId)) {
-        products.forEach((product) => {
-          product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
-        })
-        console.log(products)
-      }
+      products.forEach((product) => {
+        product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
+      })
+      // if (isPlatformBrowser(this.platformId)) {
+      //   products.forEach((product) => {
+      //     product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
+      //   })
+      //   console.log(products)
+      // }
       return products
     }))
   }
@@ -72,11 +75,14 @@ export class ProductApi {
 
     return callApi().pipe(map(resp => {
       var products = resp.result.data
-      if (isPlatformBrowser(this.platformId)) {
-        products.forEach((product) => {
-          product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
-        })
-      }
+      products.forEach((product) => {
+        product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
+      })
+      // if (isPlatformBrowser(this.platformId)) {
+      //   products.forEach((product) => {
+      //     product.product_code = product.product_code.match(/.{5}/g)?.join('-') || ""
+      //   })
+      // }
       return products
     }))
   }

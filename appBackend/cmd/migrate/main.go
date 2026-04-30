@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"goBackend/internal/adapter/db/model"
+	"goBackend/cmd/migrate/migration"
 	"log"
 	"os"
 
@@ -29,6 +29,6 @@ func main() {
 		panic("Database can't contected.")
 	}
 
-	db.AutoMigrate(&model.Product{})
+	db.AutoMigrate(&migration.Product{})
 	fmt.Println("Migration is successful.")
 }

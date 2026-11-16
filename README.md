@@ -117,7 +117,7 @@ docker-compose up -d --build
 -  **Response** (Success):
 ```json
 {
-    "message": "Deleted successfuly.",
+    "message": "Deleted successfully.",
     "statusCode": 200,
     "success": true
 }
